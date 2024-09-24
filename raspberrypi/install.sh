@@ -34,14 +34,24 @@ EOT'
 echo "Calibrating touchscreen..."
 xinput_calibrator
 
+# Update scanner.py with user inputs
+scanner_path="/opt/barcode/scanner.py"
+echo "Updating scanner.py with user inputs..."
+
+# Replace placeholders in scanner.py
+sudo sed -i "s/YOUR_HOSTNAME/$hostname/g" $scanner_path
+sudo sed -i "s/YOUR_DB_URL/$db_url/g" $scanner_path
+sudo sed -i "s/YOUR_DB_USER/$db_user/g" $scanner_path
+sudo sed -i "s/YOUR_DB_PASSWORD/$db_password/g" $scanner_path
+
 # Create a systemd service
 cat <<EOT >> /etc/systemd/system/barcode-scanner.service
 [Unit]
 Description=Barcode Scanner Service
 
 [Service]
-ExecStart=/usr/bin/python3 /opt/scanventorAI/scanner.py
-WorkingDirectory=/opt/scanventorAI
+ExecStart=/usr/bin/python3 /opt/barcode/scanner.py
+WorkingDirectory=/opt/barcode
 Restart=always
 
 [Install]
