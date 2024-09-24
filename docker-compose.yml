@@ -14,12 +14,27 @@ services:
     networks:
       - app_network
     restart: unless-stopped
+  
   ai-server:
     build: ./ai_server
     ports:
       - "5001:5001"
     networks:
       - app_network
+  
+  webapp:
+    build: ./webapp
+    ports:
+      - "5000:5000"
+    networks:
+      - app_network
+    environment:
+      DB_HOST: db
+      DB_USER: ${MYSQL_USER}
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+      DB_NAME: barcode_inventory
+    depends_on:
+      - db
 
 volumes:
   db_data:
