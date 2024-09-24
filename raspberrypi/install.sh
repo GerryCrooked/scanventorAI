@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Create folder structure and copy scanner.py
+mkdir /opt/scanventorAI
+cp ./scanner.py /opt/scanventorAI
+
 # Welcome Message
 echo "Welcome to the Raspberry Pi Barcode Scanner setup!"
 
@@ -36,8 +40,8 @@ cat <<EOT >> /etc/systemd/system/barcode-scanner.service
 Description=Barcode Scanner Service
 
 [Service]
-ExecStart=/usr/bin/python3 /path/to/your/scanner_script.py
-WorkingDirectory=/path/to/your
+ExecStart=/usr/bin/python3 /opt/scanventorAI/scanner.py
+WorkingDirectory=/opt/scanventorAI
 Restart=always
 
 [Install]
@@ -45,8 +49,8 @@ WantedBy=multi-user.target
 EOT
 
 # Reload systemd and enable service
-systemctl daemon-reload
-systemctl enable barcode-scanner.service
-systemctl start barcode-scanner.service
+sudo systemctl daemon-reload
+sudo systemctl enable barcode-scanner.service
+sudo systemctl start barcode-scanner.service
 
 echo "Installation complete! Your Raspberry Pi is set up."
