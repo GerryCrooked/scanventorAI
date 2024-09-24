@@ -1,14 +1,11 @@
-FROM python:3.9-slim
+FROM python:3.8-slim
 
 WORKDIR /app
-COPY . /app
 
-RUN pip install Flask mysql-connector-python requests
+COPY app.py /app/
+COPY requirements.txt /app/
 
-ENV DB_HOST=db
-ENV DB_USER=${MYSQL_USER}
-ENV DB_PASSWORD=${MYSQL_PASSWORD}
-ENV DB_NAME=barcode_inventory
+RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 5000
 
