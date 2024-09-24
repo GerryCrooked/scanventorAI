@@ -14,6 +14,12 @@ services:
     networks:
       - app_network
     restart: unless-stopped
+  ai-server:
+    build: ./ai_server
+    ports:
+      - "5001:5001"
+    networks:
+      - app_network
 
 volumes:
   db_data:
