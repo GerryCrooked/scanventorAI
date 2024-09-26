@@ -1,43 +1,42 @@
-version: '3'
+version: '3.8'
 services:
   db:
-    image: mysql:8.0
+    image: mysql:latest
+    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: barcode_inventory
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    volumes:
-      - db_data:/var/lib/mysql
     ports:
       - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./mySQL/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
-      - app_network
-    restart: unless-stopped
-  
-  ai-server:
-    build: ./ai_server
+      - app-network
+
+  ai_server:
+    build: ./ai
     ports:
       - "5001:5001"
+    volumes:
+      - ./ai/model:/app/model
     networks:
-      - app_network
-  
+      - app-network
+
   webapp:
     build: ./webapp
     ports:
-      - "5000:5000"
+      - "5002:80"  # Port 80 inside container exposed to 5002 on host
     networks:
-      - app_network
-    environment:
-      DB_HOST: db
-      DB_USER: ${MYSQL_USER}
-      DB_PASSWORD: ${MYSQL_PASSWORD}
-      DB_NAME: barcode_inventory
+      - app-network
     depends_on:
       - db
 
 volumes:
   db_data:
-  
+
 networks:
-  app_network:
+  app-network:
+    driver: bridge
