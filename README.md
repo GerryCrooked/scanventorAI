@@ -50,7 +50,7 @@ scanventorAI is a barcode-based inventory tracking system that uses Raspberry Pi
    ```bash
    cd server
    docker-compose up --build -d
-
+   ```
    This will:
    - Set up the MySQL database inside a Docker container.
    - Expose the database for external connections (make sure to configure firewall settings).
@@ -80,12 +80,14 @@ scanventorAI is a barcode-based inventory tracking system that uses Raspberry Pi
    create a new systemd service file so that the Raspberry Pi clients runs automatically on boot:
    ```bash
    sudo nano /etc/systemd/system/scanventorAI.service
+   ```
 
    add the following content to the file:
    ```ini
    [Unit]
    Description=ScanventorAI Barcode Client
    After=network.target
+   ```
    
    [Service]
    ExecStart=/usr/bin/python3 /path/to/scanventorAI/raspberrypi/app.py
@@ -96,6 +98,7 @@ scanventorAI is a barcode-based inventory tracking system that uses Raspberry Pi
    
    [Install]
    WantedBy=multi-user.target
+   ```
 
    Make sure to replace /path/to/scanventorAI with the actual path where you cloned the repository.
 
@@ -103,6 +106,7 @@ scanventorAI is a barcode-based inventory tracking system that uses Raspberry Pi
    enable the service so it starts at boot:
    ```bash
    sudo systemctl enable scanventorAI.service
+   ```
 
    Start the service manually for the first time:
    ```bash
