@@ -1,4 +1,4 @@
-tensorflow==2.6.0          # For barcode model training and inference
+tensorflow==2.4.1          # For barcode model training and inference
 flask==2.1.1               # To serve the AI model via API
 numpy==1.21.2              # Numerical operations
 pillow==8.4.0              # For image handling (barcode image processing)
