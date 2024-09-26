@@ -116,18 +116,3 @@ scanventorAI is a barcode-based inventory tracking system that uses Raspberry Pi
 ### Step 3: Access the Application
 Database Access: You can connect to the MySQL database running on the Proxmox server using a MySQL client or application.
 Client Logging: The Raspberry Pi client logs interactions with the database and AI recognition.
-
-
-# Directory Structure
-scanventorAI/
-│
-├── server/                  # MySQL server Docker setup (to run e.g. on Proxmox)
-│   ├── docker-compose.yml   # Docker Compose configuration for MySQL server
-│   └── .env.example         # Example .env file for the MySQL server
-├── raspberrypi/             # Raspberry Pi specific code (runs directly on Raspberry Pi)
-│   ├── app.py               # Main application for Raspberry Pi
-│   ├── requirements.txt     # Python dependencies for Raspberry Pi
-│   └── .env.example         # Example .env file for Raspberry Pi client
-└── README.md                # Project documentation
-
-
