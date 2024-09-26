@@ -1,0 +1,6 @@
+tensorflow==2.6.0          # For barcode model training and inference
+flask==2.1.1               # To serve the AI model via API
+numpy==1.21.2              # Numerical operations
+pillow==8.4.0              # For image handling (barcode image processing)
+scikit-learn==0.24.2       # Machine learning utilities for preprocessing or evaluation
+gunicorn==20.1.0           # Production WSGI server to serve the Flask app
